@@ -12,6 +12,7 @@ bootstrapTokens:
 ---
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
+controlPlaneEndpoint: "$2:6443"
 networking:
   podSubnet: 10.244.0.0/16
 YAML

@@ -47,7 +47,7 @@ resource "digitalocean_droplet" "k8smaster" {
     inline = [
       "chmod +x /tmp/bootstrap.sh /tmp/init_cluster.sh",
       "/tmp/bootstrap.sh",
-      "/tmp/init_cluster.sh ${local.custom_token}"
+      "/tmp/init_cluster.sh ${local.custom_token} ${digitalocean_droplet.k8smaster.ipv4_address_private}"
     ]
   }
 }
