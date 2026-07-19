@@ -23,7 +23,8 @@ resource "digitalocean_droplet" "k8smaster" {
   ssh_keys = [
     resource.digitalocean_ssh_key.k8shw.id
   ]
-  
+  vpc_uuid = digitalocean_vpc.k8s_network.id 
+
   connection {
     host = self.ipv4_address
     user = "root"
@@ -59,6 +60,7 @@ resource "digitalocean_droplet" "k8snode" {
   ssh_keys = [
     resource.digitalocean_ssh_key.k8shw.id
   ]
+  vpc_uuid = digitalocean_vpc.k8s_network.id 
   
   connection {
     host = self.ipv4_address

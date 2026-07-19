@@ -16,8 +16,3 @@ provider "digitalocean" {
   token = var.do_token
 }
 
-resource "digitalocean_ssh_key" "k8shw" {
-  name = "k8shwkey"
-  public_key = file(var.pub_key)
-}
-
