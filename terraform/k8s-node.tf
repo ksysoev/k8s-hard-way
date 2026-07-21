@@ -53,6 +53,7 @@ resource "digitalocean_droplet" "k8smaster" {
 }
 
 resource "digitalocean_droplet" "k8snode" {
+  count = 2
   image = "ubuntu-26-04-x64"
   name = "k8snode"
   region = "sgp1"

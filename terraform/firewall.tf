@@ -89,7 +89,7 @@ resource "digitalocean_firewall" "master_firewall" {
 resource "digitalocean_firewall" "worker_firewall" {
   name = "worker-firewall"
 
-  droplet_ids = [digitalocean_droplet.k8snode.id]
+  droplet_ids = digitalocean_droplet.k8snode[*].id
   
   inbound_rule {
     protocol         = "tcp"
