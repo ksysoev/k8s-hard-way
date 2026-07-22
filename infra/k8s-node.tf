@@ -30,7 +30,7 @@ resource "digitalocean_droplet" "k8smaster" {
     user = "root"
     type = "ssh"
     private_key = file(var.pvt_key)
-    timeout = "2m"
+    timeout = "5m"
   }
 
   provisioner "file" {
@@ -55,7 +55,7 @@ resource "digitalocean_droplet" "k8smaster" {
 resource "digitalocean_droplet" "k8snode" {
   count = 2
   image = "ubuntu-26-04-x64"
-  name = "k8snode"
+  name = "k8snode-${count.index}"
   region = "sgp1"
   size = "s-2vcpu-2gb"
   ssh_keys = [
@@ -68,7 +68,7 @@ resource "digitalocean_droplet" "k8snode" {
     user = "root"
     type = "ssh"
     private_key = file(var.pvt_key)
-    timeout = "2m"
+    timeout = "5m"
   }
 
   provisioner "file" {
