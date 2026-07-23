@@ -75,12 +75,17 @@ resource "digitalocean_droplet" "k8snode" {
     source = "scripts/bootstrap.sh"
     destination = "/tmp/bootstrap.sh"
   }
+
+  provisioner "file" {
+    source      = "scripts/join_cluster.sh"
+    destination = "/tmp/join_cluster.sh"
+  }
   
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/bootstrap.sh /tmp/init_cluster.sh",
+      "chmod +x /tmp/bootstrap.sh /tmp/join_cluster.sh",
       "/tmp/bootstrap.sh",
-      "kubeadm join ${digitalocean_droplet.k8smaster.ipv4_address_private}:6443 --token \"${local.custom_token}\" --discovery-token-unsafe-skip-ca-verification",
+      "/tmp/join_cluster.sh ${local.custom_token} ${digitalocean_droplet.k8smaster.ipv4_address_private} ${self.ipv4_address_private}",
     ]
   }
 }
