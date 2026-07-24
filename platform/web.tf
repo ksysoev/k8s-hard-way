@@ -68,3 +68,28 @@ resource "kubernetes_deployment_v1" "nginx" {
     }
   }
 }
+
+
+resource "kubernetes_service_v1" "nginx" {
+  metadata {
+    name = "nginx"
+  }
+
+  spec {
+    selector = {
+      app = "nginx"
+    }
+
+    port {
+      port        = 80
+      target_port = 80
+      protocol    = "TCP"
+    }
+
+    type = "ClusterIP"
+  }
+
+  depends_on = [
+    kubernetes_deployment_v1.nginx
+  ]
+}
